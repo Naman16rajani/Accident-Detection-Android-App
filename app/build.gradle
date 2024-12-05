@@ -1,0 +1,74 @@
+plugins {
+    alias(libs.plugins.android.application)
+    alias(libs.plugins.kotlin.android)
+    id 'de.undercouch.download' version '5.0.2'
+
+}
+
+android {
+    namespace 'org.tensorflow.lite.examples.videoclassification'
+    compileSdk 35
+
+    defaultConfig {
+        applicationId "org.tensorflow.lite.examples.videoclassification"
+        minSdk 30
+        targetSdk 34
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    buildFeatures {
+        viewBinding true
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+    androidResources {
+        noCompress 'tflite'
+    }
+    dataBinding {
+        enabled = true
+    }
+    viewBinding {
+        enabled = true
+    }
+}
+
+
+dependencies {
+    // General Android dependencies
+    implementation 'androidx.core:core-ktx:1.15.0'
+    implementation 'androidx.appcompat:appcompat:1.7.0'
+    implementation 'com.google.android.material:material:1.12.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.2.0'
+//    implementation 'com.google.ai.edge.litert:litert-support-api:1.0.1'
+//    implementation libs.litert
+
+
+    androidTestImplementation 'androidx.test.ext:junit:1.2.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.6.1'
+
+    // CameraX core library using the Camera2 implementation
+    implementation "androidx.camera:camera-camera2:1.4.0"
+    implementation "androidx.camera:camera-lifecycle:1.4.0"
+    implementation "androidx.camera:camera-view:1.4.0"
+
+    // TensorFlow Lite
+    implementation 'org.tensorflow:tensorflow-lite:2.14.0'
+    implementation 'org.tensorflow:tensorflow-lite-support:0.4.4'
+
+}
+project.ext.ASSET_DIR = projectDir.toString() + "/src/main/assets"
+apply from: 'download.gradle'
